@@ -1,0 +1,26 @@
+[
+  {
+    "name": "k8s-block-storage-management-policy",
+    "description": "Policy for Kubernetes Block Storage CSI driver operations",
+    "compartmentId": "ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+    "statements": [
+      "Allow dynamic-group k8s-nodes to manage volume-family in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to manage volume-attachments in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to manage instances in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to read compartments in tenancy",
+      "Allow dynamic-group k8s-nodes to read availability-domains in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to use subnets in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to use vnics in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to use network-security-groups in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva"
+    ]
+  },
+  {
+    "name": "k8s-block-storage-backup-policy",
+    "description": "Policy for Kubernetes Block Storage backup operations",
+    "compartmentId": "ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+    "statements": [
+      "Allow dynamic-group k8s-nodes to manage volume-backups in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to manage volume-backup-policies in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva"
+    ]
+  }
+]

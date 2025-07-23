@@ -1,0 +1,98 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # NGINX Ingress Controller specific annotations
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    # Optional: Enable CORS if needed
+    # nginx.ingress.kubernetes.io/enable-cors: "true"
+    # nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    # Optional: Rate limiting
+    # nginx.ingress.kubernetes.io/rate-limit: "100"
+    # nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+  labels:
+    app.kubernetes.io/instance: cas-nucleo-digital
+  name: cas-ms-api-docs-ing
+  namespace: cas-nucleo-digital
+spec:
+  # Use NGINX IngressClass
+  ingressClassName: nginx
+  rules:
+    - host: cas-ms-api-docs.prod.caas.alemana.cl
+      http:
+        paths:
+          - backend:
+              service:
+                name: svc-cas-ms-api-docs
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - cas-ms-api-docs.prod.caas.alemana.cl
+      secretName: wildcard-tls
+---
+# Additional example with multiple paths and services
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    # Rewrite target for API paths
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  labels:
+    app.kubernetes.io/instance: cas-nucleo-digital
+  name: cas-api-gateway-ing
+  namespace: cas-nucleo-digital
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: api.prod.caas.alemana.cl
+      http:
+        paths:
+          # API v1 endpoints
+          - backend:
+              service:
+                name: svc-cas-api-v1
+                port:
+                  number: 8080
+            path: /api/v1(/|$)(.*)
+            pathType: ImplementationSpecific
+          # API v2 endpoints
+          - backend:
+              service:
+                name: svc-cas-api-v2
+                port:
+                  number: 8080
+            path: /api/v2(/|$)(.*)
+            pathType: ImplementationSpecific
+          # Health check endpoint
+          - backend:
+              service:
+                name: svc-cas-health
+                port:
+                  number: 80
+            path: /health
+            pathType: Exact
+          # Default backend
+          - backend:
+              service:
+                name: svc-cas-default
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - api.prod.caas.alemana.cl
+      secretName: wildcard-tls

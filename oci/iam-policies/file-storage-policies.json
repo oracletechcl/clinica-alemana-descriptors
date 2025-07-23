@@ -1,0 +1,26 @@
+[
+  {
+    "name": "k8s-file-storage-management-policy",
+    "description": "Policy for Kubernetes File Storage Service (FSS) CSI driver operations",
+    "compartmentId": "ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+    "statements": [
+      "Allow dynamic-group k8s-nodes to manage file-family in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to manage mount-targets in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to manage export-sets in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to manage file-systems in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to read compartments in tenancy",
+      "Allow dynamic-group k8s-nodes to read availability-domains in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to use subnets in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to use vnics in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+      "Allow dynamic-group k8s-nodes to use network-security-groups in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva"
+    ]
+  },
+  {
+    "name": "k8s-file-storage-snapshot-policy",
+    "description": "Policy for Kubernetes File Storage Service snapshot operations",
+    "compartmentId": "ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva",
+    "statements": [
+      "Allow dynamic-group k8s-nodes to manage file-system-snapshots in compartment id ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva"
+    ]
+  }
+]

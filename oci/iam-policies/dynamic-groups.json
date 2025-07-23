@@ -1,0 +1,10 @@
+[
+  {
+    "name": "k8s-dynamic-group",
+    "description": "Dynamic group for Kubernetes cluster nodes",
+    "matchingRules": [
+      "ALL {instance.compartment.id = 'ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva'}",
+      "ANY {instance.displayname = /.*k8s.*/, instance.displayname = /.*kubernetes.*/, instance.displayname = /.*worker.*/, instance.displayname = /.*node.*/}"
+    ]
+  }
+]

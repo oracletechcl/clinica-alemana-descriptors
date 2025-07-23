@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: 'true'
+    kubernetes.io/ingress.class: contour
+    projectcontour.io/response-timeout: "120s"
+    projectcontour.io/tls-cert-namespace: wildcard
+    projectcontour.io/tls-minimun-protocol-version: "1.2"
+  labels:
+    app.kubernetes.io/instance: cas-nucleo-digital
+  name: cas-ms-api-docs-ing
+  namespace: cas-nucleo-digital
+spec:
+  rules:
+    - host: cas-ms-api-docs.prod.caas.alemana.cl
+      http:
+        paths:
+          - backend:
+              service:
+                name: svc-cas-ms-api-docs
+                port:
+                  number: 80
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - cas-ms-api-docs.prod.caas.alemana.cl
+      secretName: wildcard-tls

@@ -1,0 +1,179 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "4"
+    kapp.k14s.io/identity: v1;tanzu-system-ingress/apps/Deployment/contour;apps/v1
+    kapp.k14s.io/original: '{"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"kbld.k14s.io/images":"-
+      origins:\n  - resolved:\n      tag: v1.28.2_vmware.1\n      url: projects.registry.vmware.com/tkg/contour:v1.28.2_vmware.1\n  -
+      preresolved:\n      url: extensions.stacks.whitesand.tmc.tanzu.broadcom.com/packages/standard/repo/v2025.6.18@sha256:d9d7063e1d11f1a518378aedc719f234a808109fbce6fb52701064c9b800c050\n  url:
+      extensions.stacks.whitesand.tmc.tanzu.broadcom.com/packages/standard/repo/v2025.6.18@sha256:d9d7063e1d11f1a518378aedc719f234a808109fbce6fb52701064c9b800c050\n"},"labels":{"app":"contour","kapp.k14s.io/app":"1740453828254302432","kapp.k14s.io/association":"v1.2e5653b783bababdbd9ed7926afcb89e"},"name":"contour","namespace":"tanzu-system-ingress"},"spec":{"replicas":2,"selector":{"matchLabels":{"app":"contour","kapp.k14s.io/app":"1740453828254302432"}},"strategy":{"rollingUpdate":{"maxSurge":"50%"},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"prometheus.io/port":"8000","prometheus.io/scrape":"true"},"labels":{"app":"contour","kapp.k14s.io/app":"1740453828254302432","kapp.k14s.io/association":"v1.2e5653b783bababdbd9ed7926afcb89e"}},"spec":{"affinity":{"podAntiAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"podAffinityTerm":{"labelSelector":{"matchLabels":{"app":"contour"}},"topologyKey":"kubernetes.io/hostname"},"weight":100}]}},"containers":[{"args":["serve","--incluster","--xds-address=::","--xds-port=8001","--stats-address=::","--http-address=::","--envoy-service-http-address=::","--envoy-service-https-address=::","--health-address=::","--contour-cafile=/certs/ca.crt","--contour-cert-file=/certs/tls.crt","--contour-key-file=/certs/tls.key","--config-path=/config/contour.yaml","--disable-feature=tlsroutes","--disable-feature=grpcroutes","--disable-feature=tcproutes"],"command":["contour"],"env":[{"name":"CONTOUR_NAMESPACE","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.namespace"}}},{"name":"POD_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.name"}}}],"image":"extensions.stacks.whitesand.tmc.tanzu.broadcom.com/packages/standard/repo/v2025.6.18@sha256:d9d7063e1d11f1a518378aedc719f234a808109fbce6fb52701064c9b800c050","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/healthz","port":8000}},"name":"contour","ports":[{"containerPort":8001,"name":"xds","protocol":"TCP"},{"containerPort":8000,"name":"metrics","protocol":"TCP"},{"containerPort":6060,"name":"debug","protocol":"TCP"}],"readinessProbe":{"periodSeconds":10,"tcpSocket":{"port":8001}},"volumeMounts":[{"mountPath":"/certs","name":"contourcert","readOnly":true},{"mountPath":"/config","name":"contour-config","readOnly":true}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"contour-reg-creds"}],"securityContext":{"runAsGroup":65534,"runAsNonRoot":true,"runAsUser":65534},"serviceAccountName":"contour","volumes":[{"name":"contourcert","secret":{"secretName":"contourcert"}},{"configMap":{"defaultMode":420,"items":[{"key":"contour.yaml","path":"contour.yaml"}],"name":"contour"},"name":"contour-config"}]}}}}'
+    kapp.k14s.io/original-diff-md5: 3d984a468f562c5021961a75b9e3d59a
+    kbld.k14s.io/images: |
+      - origins:
+        - resolved:
+            tag: v1.28.2_vmware.1
+            url: projects.registry.vmware.com/tkg/contour:v1.28.2_vmware.1
+        - preresolved:
+            url: extensions.stacks.whitesand.tmc.tanzu.broadcom.com/packages/standard/repo/v2025.6.18@sha256:d9d7063e1d11f1a518378aedc719f234a808109fbce6fb52701064c9b800c050
+        url: extensions.stacks.whitesand.tmc.tanzu.broadcom.com/packages/standard/repo/v2025.6.18@sha256:d9d7063e1d11f1a518378aedc719f234a808109fbce6fb52701064c9b800c050
+  creationTimestamp: "2025-02-25T03:23:53Z"
+  generation: 8
+  labels:
+    app: contour
+    kapp.k14s.io/app: "1740453828254302432"
+    kapp.k14s.io/association: v1.2e5653b783bababdbd9ed7926afcb89e
+  name: contour
+  namespace: tanzu-system-ingress
+  resourceVersion: "675637732"
+  uid: 204aeb35-d930-4070-92a2-4d3fbab3a440
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: contour
+      kapp.k14s.io/app: "1740453828254302432"
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "8000"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: contour
+        kapp.k14s.io/app: "1740453828254302432"
+        kapp.k14s.io/association: v1.2e5653b783bababdbd9ed7926afcb89e
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: contour
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - args:
+        - serve
+        - --incluster
+        - '--xds-address=::'
+        - --xds-port=8001
+        - '--stats-address=::'
+        - '--http-address=::'
+        - '--envoy-service-http-address=::'
+        - '--envoy-service-https-address=::'
+        - '--health-address=::'
+        - --contour-cafile=/certs/ca.crt
+        - --contour-cert-file=/certs/tls.crt
+        - --contour-key-file=/certs/tls.key
+        - --config-path=/config/contour.yaml
+        - --disable-feature=tlsroutes
+        - --disable-feature=grpcroutes
+        - --disable-feature=tcproutes
+        command:
+        - contour
+        env:
+        - name: CONTOUR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        image: extensions.stacks.whitesand.tmc.tanzu.broadcom.com/packages/standard/repo/v2025.6.18@sha256:d9d7063e1d11f1a518378aedc719f234a808109fbce6fb52701064c9b800c050
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 8000
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: contour
+        ports:
+        - containerPort: 8001
+          name: xds
+          protocol: TCP
+        - containerPort: 8000
+          name: metrics
+          protocol: TCP
+        - containerPort: 6060
+          name: debug
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: 8001
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /certs
+          name: contourcert
+          readOnly: true
+        - mountPath: /config
+          name: contour-config
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: contour-reg-creds
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccount: contour
+      serviceAccountName: contour
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: contourcert
+        secret:
+          defaultMode: 420
+          secretName: contourcert
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: contour.yaml
+            path: contour.yaml
+          name: contour
+        name: contour-config
+status:
+  availableReplicas: 2
+  conditions:
+  - lastTransitionTime: "2025-05-27T02:22:12Z"
+    lastUpdateTime: "2025-05-27T02:22:12Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2025-02-25T03:23:54Z"
+    lastUpdateTime: "2025-06-26T17:34:13Z"
+    message: ReplicaSet "contour-79f7cd8f87" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 8
+  readyReplicas: 2
+  replicas: 2
+  updatedReplicas: 2
