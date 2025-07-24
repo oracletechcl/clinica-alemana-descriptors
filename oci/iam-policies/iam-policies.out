@@ -1,0 +1,94 @@
+# Políticas IAM para OCI Kubernetes Storage Classes
+
+## Compartimento
+```
+ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva
+```
+
+## 1. Grupo Dinámico
+```
+Nombre: k8s-dynamic-group
+Descripción: Dynamic group for Kubernetes cluster nodes
+
+Reglas de coincidencia:
+- ALL {instance.compartment.id = 'ocid1.compartment.oc1..aaaaaaaa5vmhhu4nckq2zwmsznj7ytticdkvrghfon56sepq6mkkz72y4mva'}
+- ANY {instance.displayname = /.*k8s.*/, instance.displayname = /.*kubernetes.*/, instance.displayname = /.*worker.*/, instance.displayname = /.*node.*/}
+```
+
+## 2. Políticas de Block Storage
+
+### k8s-block-storage-management-policy
+```
+Descripción: Policy for Kubernetes Block Storage CSI driver operations
+
+Declaraciones:
+- Allow dynamic-group k8s-nodes to manage volume-family in compartment poc_oke
+- Allow dynamic-group k8s-nodes to manage volume-attachments in compartment poc_oke
+- Allow dynamic-group k8s-nodes to manage instances in compartment poc_oke
+- Allow dynamic-group k8s-nodes to read compartments in tenancy
+- Allow dynamic-group k8s-nodes to read availability-domains in compartment poc_oke
+- Allow dynamic-group k8s-nodes to use subnets in compartment poc_oke
+- Allow dynamic-group k8s-nodes to use vnics in compartment poc_oke
+- Allow dynamic-group k8s-nodes to use network-security-groups in compartment poc_oke
+```
+
+### k8s-block-storage-backup-policy
+```
+Descripción: Policy for Kubernetes Block Storage backup operations
+
+Declaraciones:
+- Allow dynamic-group k8s-nodes to manage volume-backups in compartment poc_oke
+- Allow dynamic-group k8s-nodes to manage volume-backup-policies in compartment poc_oke
+```
+
+## 3. Políticas de File Storage Service
+
+### k8s-file-storage-management-policy
+```
+Descripción: Policy for Kubernetes File Storage Service (FSS) CSI driver operations
+
+Declaraciones:
+- Allow dynamic-group k8s-nodes to manage file-family in compartment poc_oke
+- Allow dynamic-group k8s-nodes to manage mount-targets in compartment poc_oke
+- Allow dynamic-group k8s-nodes to manage export-sets in compartment poc_oke
+- Allow dynamic-group k8s-nodes to manage file-systems in compartment poc_oke
+- Allow dynamic-group k8s-nodes to read compartments in tenancy
+- Allow dynamic-group k8s-nodes to read availability-domains in compartment poc_oke
+- Allow dynamic-group k8s-nodes to use subnets in compartment poc_oke
+- Allow dynamic-group k8s-nodes to use vnics in compartment poc_oke
+- Allow dynamic-group k8s-nodes to use network-security-groups in compartment poc_oke
+```
+
+### k8s-file-storage-snapshot-policy
+```
+Descripción: Policy for Kubernetes File Storage Service snapshot operations
+
+Declaraciones:
+- Allow dynamic-group k8s-nodes to manage file-system-snapshots in compartment poc_oke
+```
+
+## Resumen de Permisos
+
+### Permisos de Block Storage:
+- Gestión completa de volúmenes y adjuntos de volúmenes
+- Gestión de instancias
+- Operaciones de respaldo de volúmenes
+- Lectura de compartimentos y dominios de disponibilidad
+- Uso de recursos de red (subnets, VNICs, NSGs)
+
+### Permisos de File Storage:
+- Gestión completa de sistemas de archivos
+- Gestión de puntos de montaje y conjuntos de exportación
+- Operaciones de snapshots de sistemas de archivos
+- Lectura de compartimentos y dominios de disponibilidad
+- Uso de recursos de red (subnets, VNICs, NSGs)
+
+### Grupo Dinámico:
+- Incluye todas las instancias del compartimento especificado
+- Filtra por nombres que contengan: k8s, kubernetes, worker, node
+
+
+
+
+
+alemanasantiago:dr:app:poc_oke
