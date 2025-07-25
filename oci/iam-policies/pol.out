@@ -1,0 +1,114 @@
+# Políticas IAM para OCI Kubernetes Storage Classes
+
+## Compartimento
+```
+alemanasantiago:poc_oke
+```
+
+## 1. Grupo Dinámico
+```
+Nombre: k8s-dynamic-group
+Descripción: Dynamic group for Kubernetes cluster nodes
+
+Reglas de coincidencia:
+ALL {instance.compartment.id = 'alemanasantiago:poc_oke'}
+ANY {instance.displayname = /.*k8s.*/, instance.displayname = /.*kubernetes.*/, instance.displayname = /.*worker.*/, instance.displayname = /.*node.*/}
+
+
+ANY {
+  (instance.compartment.id = 'poc_oke' AND instance.displayname = /.*k8s.*/),
+  (instance.compartment.id = 'poc_oke' AND instance.displayname = /.*kubernetes.*/),
+  (instance.compartment.id = 'poc_oke' AND instance.displayname = /.*worker.*/),
+  (instance.compartment.id = 'poc_oke' AND instance.displayname = /.*node.*/)
+}
+
+
+
+```
+
+## 2. Políticas de Block Storage
+
+### k8s-block-storage-management-policy
+```
+Descripción: Policy for Kubernetes Block Storage CSI driver operations
+
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to read compartments in tenancy
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to read availability-domains in tenancy
+
+
+
+Declaraciones:
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to manage volume-family in compartment poc_oke
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to manage instances in compartment poc_oke
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to use subnets in compartment poc_oke
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to use vnics in compartment poc_oke
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to use network-security-groups in compartment poc_oke
+
+
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to manage volume-backups in compartment poc_oke
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to manage volume-backup-policies in compartment poc_oke
+
+
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to manage volume-backups in compartment poc_oke
+Allow OracleIdentityCloudService/k8s-dynamic-group to manage volume-backup-policies in compartment poc_oke
+
+```
+
+### k8s-block-storage-backup-policy
+```
+Descripción: Policy for Kubernetes Block Storage backup operations
+
+Declaraciones:
+Allow dynamic-group OracleIdentityCloudService/k8s-dynamic-group to manage volume-backups in compartment poc_oke
+Allow OracleIdentityCloudService/k8s-dynamic-group to manage volume-backup-policies in compartment poc_oke
+```
+
+## 3. Políticas de File Storage Service
+
+### k8s-file-storage-management-policy
+```
+Descripción: Policy for Kubernetes File Storage Service (FSS) CSI driver operations
+
+Declaraciones:
+Allow OracleIdentityCloudService/k8s-dynamic-group to manage file-family in compartment poc_oke
+Allow OracleIdentityCloudService/k8s-dynamic-group to manage mount-targets in compartment poc_oke
+Allow OracleIdentityCloudService/k8s-dynamic-group to manage export-sets in compartment poc_oke
+Allow OracleIdentityCloudService/k8s-dynamic-group to manage file-systems in compartment poc_oke
+Allow OracleIdentityCloudService/k8s-dynamic-group to read compartments in tenancy
+Allow OracleIdentityCloudService/k8s-dynamic-group to read availability-domains in compartment poc_oke
+Allow OracleIdentityCloudService/k8s-dynamic-group to use subnets in compartment poc_oke
+Allow OracleIdentityCloudService/k8s-dynamic-group to use vnics in compartment poc_oke
+Allow OracleIdentityCloudService/k8s-dynamic-group to use network-security-groups in compartment poc_oke
+```
+
+### k8s-file-storage-snapshot-policy
+```
+Descripción: Policy for Kubernetes File Storage Service snapshot operations
+
+Declaraciones:
+Allow OracleIdentityCloudService/k8s-dynamic-group to manage file-system-snapshots in compartment poc_oke
+```
+
+## Resumen de Permisos
+
+### Permisos de Block Storage:
+- Gestión completa de volúmenes y adjuntos de volúmenes
+- Gestión de instancias
+- Operaciones de respaldo de volúmenes
+- Lectura de compartimentos y dominios de disponibilidad
+- Uso de recursos de red (subnets, VNICs, NSGs)
+
+### Permisos de File Storage:
+- Gestión completa de sistemas de archivos
+- Gestión de puntos de montaje y conjuntos de exportación
+- Operaciones de snapshots de sistemas de archivos
+- Lectura de compartimentos y dominios de disponibilidad
+- Uso de recursos de red (subnets, VNICs, NSGs)
+
+### Grupo Dinámico:
+- Incluye todas las instancias del compartimento alemanasantiago:poc_oke
+- Filtra por nombres que contengan: k8s, kubernetes, worker, node
+
+
+
+
