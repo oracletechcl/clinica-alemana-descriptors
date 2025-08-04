@@ -213,8 +213,7 @@ The most efficient method is to have the boot volume expanded automatically when
     echo "Filesystem expansion complete. Final disk usage:" >> $LOG_FILE
     df -h / >> $LOG_FILE
     
-    ```
-    
+    ```   
 
        ![IMG014](./images/img014.png) 
         
